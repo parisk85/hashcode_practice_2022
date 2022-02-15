@@ -1,4 +1,4 @@
-package gr.parisk85.practice;
+package gr.parisk85.practice.helper;
 
 import lombok.SneakyThrows;
 

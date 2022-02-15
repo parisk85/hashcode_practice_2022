@@ -1,4 +1,4 @@
-package gr.parisk85.practice;
+package gr.parisk85.practice.service;
 
 import gr.parisk85.practice.model.Client;
 import gr.parisk85.practice.model.Data;
@@ -6,8 +6,9 @@ import gr.parisk85.practice.model.Data;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Algorithm {
+public class ParisAlgorithm implements Algorithm {
 
+    @Override
     public List<String> run(Data data) {
         var mostLiked = data.getIngredients().stream()
                 .map(ing -> data.getClients().stream()
