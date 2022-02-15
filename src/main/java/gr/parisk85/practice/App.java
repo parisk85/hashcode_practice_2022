@@ -13,10 +13,12 @@ public class App {
 
     private final InputReader reader;
     private final Algorithm algorithm;
+    private final OutputWriter writer;
 
     public static void main(String[] args) {
-        var app = new App(new InputReader(), new Algorithm());
+        var app = new App(new InputReader(), new Algorithm(), new OutputWriter());
         var data = app.reader.read(A);
-        app.algorithm.run(data);
+        var output = app.algorithm.run(data);
+        app.writer.write(output);
     }
 }
