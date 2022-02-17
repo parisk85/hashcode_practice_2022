@@ -41,7 +41,7 @@ public class InputReader {
         }
 
         return dataBuilder
-                .ingredients(ingredients)
+                .ingredients(new ArrayList<>(ingredients))
                 .clients(clients)
                 .build();
     }

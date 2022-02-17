@@ -12,8 +12,9 @@ import java.util.List;
 public class OutputWriter {
 
     @SneakyThrows
-    public void write(List<String> output) {
-        File file = new File("src/main/resources/output.txt");
+    public void write(List<String> output, String filename) {
+        String outputFilename = String.format("src/main/resources/%s-output.txt", filename);
+        File file = new File(outputFilename);
         file.delete();
         Path path = Paths.get(file.getPath());
         Files.createFile(path);

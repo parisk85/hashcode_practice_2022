@@ -3,35 +3,44 @@ package gr.parisk85.practice.service;
 import gr.parisk85.practice.model.Client;
 import gr.parisk85.practice.model.Data;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ParisAlgorithm implements Algorithm {
-
     @Override
     public List<String> run(Data data) {
-        var mostLiked = data.getIngredients().stream()
-                .map(ing -> data.getClients().stream()
-                        .map(Client::getLikeList)
-                        .map(l -> l.contains(ing))
-                        .mapToInt(b -> b ? 1 : 0)
-                        .sum())
-                .collect(Collectors.toList());
+        data.getIngredients().stream()
+                .sorted(Comparator.comparing(ing -> getIngredientRating(ing, data.getClients()), Comparator.reverseOrder()))
+                .forEach(ing -> System.out.printf("%s rating: %d%n", ing, getIngredientRating(ing, data.getClients())));
 
-        var mostDisliked = data.getIngredients().stream()
-                .map(ing -> data.getClients().stream()
-                        .map(Client::getDislikeList)
-                        .map(l -> l.contains(ing))
-                        .mapToInt(b -> b ? 1 : 0)
-                        .sum())
-                .collect(Collectors.toList());
+        List<String> toRemove = new ArrayList<>();
+        for (var ing : data.getIngredients()) {
+            for (var cl : data.getClients()) {
+                if (cl.getDislikeList().contains(ing)) {
+                    toRemove.add(ing);
+                }
+            }
+        }
+        data.getIngredients().removeAll(toRemove);
 
         System.out.println(data.getIngredients());
-        System.out.printf("Potential Clients %d\n", data.getPotentialClients());
-        System.out.println(mostLiked);
-        System.out.println(mostDisliked);
 
-        return List.of("tomatoes", "pepper", "basil");
-        //return Collections.emptyList();
+        var potentialClients = data.getClients().stream()
+                .map(client -> data.getIngredients().containsAll(client.getLikeList()) && Collections.disjoint(client.getDislikeList(), data.getIngredients()))
+                .mapToInt(b -> b ? 1 : 0)
+                .sum();
+
+        System.out.printf("Potential Clients %d%n", potentialClients);
+
+        return data.getIngredients();
+    }
+
+    private int getIngredientRating(String ingredient, List<Client> clients) {
+        return clients.stream()
+                .map(c -> c.getLikeList().contains(ingredient) && !c.getDislikeList().contains(ingredient))
+                .mapToInt(b -> b ? 1 : 0)
+                .sum();
     }
 }

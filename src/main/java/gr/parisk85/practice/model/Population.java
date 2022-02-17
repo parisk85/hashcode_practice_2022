@@ -7,8 +7,6 @@ import java.util.List;
 
 @Value
 @Builder
-public class Data {
-    int potentialClients;
-    List<Client> clients;
-    List<String> ingredients;
+public class Population<T> {
+    List<Individual<T>> population;
 }
