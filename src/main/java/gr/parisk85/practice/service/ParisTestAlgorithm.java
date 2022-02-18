@@ -41,6 +41,6 @@ public class ParisTestAlgorithm implements Algorithm {
 
         System.out.println(potentialClients);
 
-        return Collections.emptyList();
+        return res;
     }
 }

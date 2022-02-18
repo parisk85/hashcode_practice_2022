@@ -1,5 +1,16 @@
 plugins {
     id 'java'
+    id 'application'
+}
+
+apply plugin: 'java'
+
+ext {
+    javaMainClass = 'gr.parisk85.practice.App'
+}
+
+application {
+    mainClassName = javaMainClass
 }
 
 group 'gr.parisk85'
@@ -22,3 +33,13 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+task zipSources(type: Zip) {
+    from sourceSets.main.allSource
+    exclude '*.txt'
+    destinationDirectory = projectDir
+    archiveName = "sources.zip"
+    println 'sources zip created'
+}
+
+run.dependsOn zipSources

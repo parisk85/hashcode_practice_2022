@@ -23,7 +23,8 @@ public class App {
             A, new ParisTestAlgorithm(),
             B, new ParisTestAlgorithm(),
             C, new ParisTestAlgorithm(),
-            D, new YoutubeAlgorithm()
+            D, new ParisTestAlgorithm(),
+            E, new YoutubeAlgorithm()
     );
 
     private final InputReader reader;
