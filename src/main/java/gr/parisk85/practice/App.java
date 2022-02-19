@@ -5,6 +5,7 @@ import gr.parisk85.practice.helper.OutputWriter;
 import gr.parisk85.practice.service.Algorithm;
 import gr.parisk85.practice.service.ParisTestAlgorithm;
 import gr.parisk85.practice.service.YoutubeAlgorithm;
+import gr.parisk85.practice.util.Utils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -39,6 +40,7 @@ public class App {
                     var data = pair.getValue().reader.read(filename);
                     var output = pair.getValue().algorithm.run(data);
                     pair.getValue().writer.write(output, filename);
+                    Utils.produceJson(data, filename);
                 });
     }
 }

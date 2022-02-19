@@ -25,6 +25,7 @@ dependencies {
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
     implementation group: 'com.codepoetics', name: 'protonpack', version: '1.16'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.1'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
@@ -42,4 +43,13 @@ task zipSources(type: Zip) {
     println 'sources zip created'
 }
 
+task zipJson(type: Zip) {
+    from sourceSets.main.resources
+    exclude '*.txt'
+    destinationDirectory = projectDir
+    archiveName = "json.zip"
+    println 'json zip created'
+}
+
 run.dependsOn zipSources
+run.dependsOn zipJson
