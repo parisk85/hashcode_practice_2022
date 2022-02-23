@@ -25,4 +25,5 @@ public class App {
         //Json for Javascript language speakers
         Utils.produceJson(data, INPUT_FILENAME);
     }
+
 }
