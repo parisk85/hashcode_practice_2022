@@ -1,10 +1,9 @@
 package gr.parisk85.practice.service;
 
 import gr.parisk85.practice.model.Data;
-
-import java.util.List;
+import gr.parisk85.practice.model.Output;
 
 public interface Algorithm {
 
-    List<String> run(Data data);
+    Output run(Data data);
 }

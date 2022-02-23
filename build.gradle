@@ -38,6 +38,7 @@ test {
 task zipSources(type: Zip) {
     from sourceSets.main.allSource
     exclude '*.txt'
+    exclude '*.json'
     destinationDirectory = projectDir
     archiveName = "sources.zip"
     println 'sources zip created'

@@ -3,44 +3,26 @@ package gr.parisk85.practice;
 import gr.parisk85.practice.helper.InputReader;
 import gr.parisk85.practice.helper.OutputWriter;
 import gr.parisk85.practice.service.Algorithm;
-import gr.parisk85.practice.service.ParisTestAlgorithm;
-import gr.parisk85.practice.service.YoutubeAlgorithm;
+import gr.parisk85.practice.service.DummyAlgorithm;
 import gr.parisk85.practice.util.Utils;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.Map;
 
 @RequiredArgsConstructor
 public class App {
 
-    private static final String A = "a_an_example.in.txt";
-    private static final String B = "b_basic.in.txt";
-    private static final String C = "c_coarse.in.txt";
-    private static final String D = "d_difficult.in.txt";
-    private static final String E = "e_elaborate.in.txt";
-
-    private static final Map<String, Algorithm> INPUTS = Map.of(
-            A, new ParisTestAlgorithm(),
-            B, new ParisTestAlgorithm(),
-            C, new ParisTestAlgorithm(),
-            D, new ParisTestAlgorithm(),
-            E, new YoutubeAlgorithm()
-    );
+    //TODO: replace with input filename
+    private static final String INPUT_FILENAME = "replace_with_hashcode_input_file.txt";
 
     private final InputReader reader;
     private final Algorithm algorithm;
     private final OutputWriter writer;
 
     public static void main(String[] args) {
-        INPUTS.entrySet().stream()
-                .map(input -> Pair.of(input.getKey(), new App(new InputReader(), input.getValue(), new OutputWriter())))
-                .forEach(pair -> {
-                    var filename = pair.getKey();
-                    var data = pair.getValue().reader.read(filename);
-                    var output = pair.getValue().algorithm.run(data);
-                    pair.getValue().writer.write(output, filename);
-                    Utils.produceJson(data, filename);
-                });
+        var app = new App(new InputReader(), new DummyAlgorithm(), new OutputWriter());
+        var data = app.reader.read(INPUT_FILENAME);
+        var output = app.algorithm.run(data);
+        app.writer.write(output, INPUT_FILENAME);
+        //Json for Javascript language speakers
+        Utils.produceJson(data, INPUT_FILENAME);
     }
 }
