@@ -2,6 +2,7 @@ package gr.parisk85.practice.helper;
 
 import gr.parisk85.practice.model.Contributor;
 import gr.parisk85.practice.model.Data;
+import gr.parisk85.practice.model.Project;
 import gr.parisk85.practice.model.Skill;
 
 import java.io.BufferedReader;
@@ -17,7 +18,6 @@ public class InputReader {
         var input = new BufferedReader(new InputStreamReader(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(filename)))).lines().collect(Collectors.toList());
 
         var dataBuilder = Data.builder();
-        //TODO: get input to create data model object
 
         var firstLine = input.stream().findFirst()
                 .map(s -> s.split(" "))
@@ -53,10 +53,36 @@ public class InputReader {
 
             line = line + Integer.parseInt(s[1]) + 1;
             i++;
-
         }
 
-        var newData = data.toBuilder().contributors(contributors).build();
+        int j = 0;
+        List<Project> projectList = new ArrayList<>();
+        while (j < data.getNoOfProjects()) {
+            var fileLine = input.get(line);
+            var split = fileLine.split(" ");
+            var projectBuilder = Project.builder()
+                    .name(split[0])
+                    .days(Integer.parseInt(split[1]))
+                    .score(Integer.parseInt(split[2]))
+                    .bestBefore(Integer.parseInt(split[3]))
+                    .noOfRoles(Integer.parseInt(split[4]));
+
+            List<Skill> skillList = new ArrayList<>();
+
+            for (int skill = line + 1; skill <= line + Integer.parseInt(split[4]); skill++) {
+                var t = input.get(skill).split(" ");
+                var sk = Skill.builder().name(t[0]).level(Integer.parseInt(t[1])).build();
+                skillList.add(sk);
+            }
+
+            projectBuilder.roles(skillList);
+            projectList.add(projectBuilder.build());
+
+            line = line + Integer.parseInt(split[4]) + 1;
+            j++;
+        }
+
+        var newData = data.toBuilder().contributors(contributors).projects(projectList).build();
 
         System.out.println(newData);
 

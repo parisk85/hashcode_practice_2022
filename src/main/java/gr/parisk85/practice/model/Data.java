@@ -11,4 +11,5 @@ public class Data {
     int noOfContributors;
     int noOfProjects;
     List<Contributor> contributors;
+    List<Project> projects;
 }
