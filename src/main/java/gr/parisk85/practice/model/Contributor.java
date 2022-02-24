@@ -4,11 +4,11 @@ import lombok.Builder;
 import lombok.Value;
 
 import java.util.List;
-import java.util.Map;
 
 @Value
 @Builder
-public class Output {
-    int executedProjects;
-    Map<String, List<String>> projectsAndNames;
+public class Contributor {
+    String name;
+    int noOfSkills;
+    List<Skill> skills;
 }

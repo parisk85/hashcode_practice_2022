@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 public class App {
 
     //TODO: replace with input filename
-    private static final String INPUT_FILENAME = "replace_with_hashcode_input_file.txt";
+    private static final String INPUT_FILENAME = "a_an_example.in.txt";
 
     private final InputReader reader;
     private final Algorithm algorithm;

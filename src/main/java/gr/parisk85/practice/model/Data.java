@@ -3,8 +3,12 @@ package gr.parisk85.practice.model;
 import lombok.Builder;
 import lombok.Value;
 
+import java.util.List;
+
 @Value
-@Builder
+@Builder(toBuilder = true)
 public class Data {
-    //TODO: model input data
+    int noOfContributors;
+    int noOfProjects;
+    List<Contributor> contributors;
 }
