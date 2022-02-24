@@ -1,9 +1,9 @@
 package gr.parisk85.practice.model;
 
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
 
-@Value
+@Data
 @Builder
 public class Skill {
     String name;

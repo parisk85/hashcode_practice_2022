@@ -9,6 +9,5 @@ import java.util.Map;
 @Value
 @Builder
 public class Output {
-    int executedProjects;
     Map<String, List<String>> projectsAndNames;
 }

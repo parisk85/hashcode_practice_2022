@@ -24,7 +24,19 @@ public class OutputWriter {
     private String formatOutput(Output output) {
         StringBuilder builder = new StringBuilder();
 
-        //TODO: append output as string
+        builder.append(output.getProjectsAndNames().size());
+        builder.append("\n");
+        output.getProjectsAndNames().entrySet()
+                .stream()
+                .forEach(entry -> {
+                    builder.append(entry.getKey() + "\n");
+
+                    if (entry.getValue().size() > 0) {
+                        entry.getValue().stream().forEach(v -> builder.append(v + " "));
+                        builder.append("\n");
+                    }
+
+                });
 
         return builder.toString();
     }
