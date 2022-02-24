@@ -30,15 +30,17 @@ public class InputReader {
 
         int i = 0;
         int line = 1;
-        List<Skill> skillList = new ArrayList<>();
-        var contributorBuilder = Contributor.builder();
+
+        List<Contributor> contributors = new ArrayList<>();
         while (i < data.getNoOfContributors()) {
             var fileLine = input.get(line);
             var s = fileLine.split(" ");
+            var contributorBuilder = Contributor.builder();
 
             contributorBuilder.name(s[0])
                     .noOfSkills(Integer.parseInt(s[1]));
 
+            List<Skill> skillList = new ArrayList<>();
 
             for (int skill = line + 1; skill <= line + Integer.parseInt(s[1]); skill++) {
                 var t = input.get(skill).split(" ");
@@ -47,17 +49,17 @@ public class InputReader {
             }
 
             contributorBuilder.skills(skillList);
+            contributors.add(contributorBuilder.build());
 
             line = line + Integer.parseInt(s[1]) + 1;
             i++;
 
-            contributorBuilder.build();
         }
 
-        var newData = data.toBuilder().contributors(contributorBuilder);
+        var newData = data.toBuilder().contributors(contributors).build();
 
         System.out.println(newData);
 
-        return data;
+        return newData;
     }
 }
