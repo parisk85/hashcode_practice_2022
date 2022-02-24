@@ -84,8 +84,6 @@ public class InputReader {
 
         var newData = data.toBuilder().contributors(contributors).projects(projectList).build();
 
-        System.out.println(newData);
-
         return newData;
     }
 }
